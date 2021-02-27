@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eo pipefail
+
+socat tcp-listen:5554 tcp-connect:localhost:15554 &
+socat tcp-listen:5555 tcp-connect:localhost:15555 &
+
+/opt/android-sdk/emulator/emulator \
+    -avd test_avd \
+    -no-window \
+    -no-audio \
+    -no-boot-anim \
+    -no-snapshot-save \
+    -gpu swiftshader_indirect \
+    -skip-adb-auth \
+    -ports 15554,15555
