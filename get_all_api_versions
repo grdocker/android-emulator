@@ -1,0 +1,26 @@
+#!/bin/bash
+set -eo pipefail
+
+function join()
+{
+    local IFS="$1"
+    shift
+    echo "$*"
+}
+
+function get_all_system_images()
+{
+    sdkmanager --list | grep --perl-regexp "system-images;android-.*;google_apis;x86\s"
+}
+
+function select_versions()
+{
+    grep --only-matching --perl-regexp ";android-[^;]+" | sed "s/^;android-//"
+}
+
+function api_versions()
+{
+    get_all_system_images | select_versions | sort | uniq
+}
+
+echo $"[$(join ',' $(api_versions))]"

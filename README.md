@@ -1,3 +1,4 @@
-# template
+# android-emulator
 
-This repository contains basic files needed to setup new image repository with tests and auto uploads
+Image contains ready to use android emulator.
+Android emulator requires hardware virtualization, so container need to be run with "--device /dev/kvm".
